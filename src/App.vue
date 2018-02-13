@@ -12,9 +12,10 @@
 
 <script>
     import NotificationSound from './assets/sounds/notification';
+    import { requestNotificationPermission, showNotification } from './sw-helpers';
 
     const notificationSound = new Audio(NotificationSound);
-    const padNum = (num) => `0${ num }`.slice(-2);
+    const padNum = num => `0${ num }`.slice(-2);
     let countdownInterval;
 
     export default {
@@ -37,6 +38,7 @@
             start() {
                 this.isActive = true;
                 this.isReset = false;
+                requestNotificationPermission();
 
                 countdownInterval = setInterval(() => {
                     if (this.seconds > 0) {
@@ -44,9 +46,16 @@
 
                         if (this.minutes === 0 && this.seconds === 0) {
                             clearInterval(countdownInterval);
-                            notificationSound.play();
                             this.isActive = false;
                             this.isComplete = true;
+
+                            if (document.hidden) {
+                                showNotification();
+                                return;
+                            }
+
+                            notificationSound.play()
+                                .catch(error => console.error(error));
                         }
 
                         return;

@@ -3,10 +3,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
+const configureIcon = (size, ios = false) => {
+    return {
+        src: path.resolve(__dirname, `../src/assets/images/icons/timer-${ size }x${ size }.png`),
+        destination: 'assets',
+        sizes: `${ size }x${ size }`,
+        type: 'image/png',
+        ios: ios
+    };
+};
+
 module.exports = {
-    entry: './src/main.js',
+    entry: path.resolve(__dirname, '../src/main.js'),
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../dist'),
         filename: 'app.js'
     },
     module: {
@@ -41,14 +51,15 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            favicon: './src/assets/images/favicon.ico',
-            template: './src/index.html'
+            favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
+            template: path.resolve(__dirname, '../src/index.html')
         }),
         new WebpackPwaManifest({
             name: 'Pomodoro Timer',
             short_name: 'Pomodoro',
             description: 'Pomodoro Timer',
             start_url: '.',
+            filename: 'manifest.json',
             fingerprints: false,
             display: 'fullscreen',
             orientation: 'any',
@@ -58,45 +69,17 @@ module.exports = {
                 'apple-mobile-web-app-status-bar-style': 'black'
             },
             icons: [
-                {
-                    src: './src/assets/images/icons/timer-48x48.png',
-                    destination: 'assets',
-                    sizes: '48x48',
-                    type: 'image/png'
-                },
-                {
-                    src: './src/assets/images/icons/timer-64x64.png',
-                    destination: 'assets',
-                    sizes: '64x64',
-                    type: 'image/png'
-                },
-                {
-                    src: './src/assets/images/icons/timer-128x128.png',
-                    destination: 'assets',
-                    sizes: '128x128',
-                    type: 'image/png',
-                    ios: true
-                },
-                {
-                    src: './src/assets/images/icons/timer-256x256.png',
-                    destination: 'assets',
-                    sizes: '256x256',
-                    type: 'image/png',
-                    ios: true
-                },
-                {
-                    src: './src/assets/images/icons/timer-512x512.png',
-                    destination: 'assets',
-                    sizes: '512x512',
-                    type: 'image/png',
-                    ios: 'startup'
-                }
+                configureIcon(48),
+                configureIcon(64),
+                configureIcon(128, true),
+                configureIcon(256, true),
+                configureIcon(512, 'startup')
             ]
         }),
         new WorkboxPlugin({
-            globDirectory: 'dist',
+            globDirectory: path.resolve(__dirname, '../dist'),
             globPatterns: ['**/*.{html,js,css,json,woff2,png,mp3}'],
-            swDest: path.join('dist', 'service-worker.js'),
+            swDest: path.resolve(__dirname, '../dist/sw.js'),
             clientsClaim: true,
             skipWaiting: true
         })

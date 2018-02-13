@@ -7,9 +7,10 @@ Primarily I built this to experiment with [Progressive Web Apps](https://develop
 Thanks to a [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest) and [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), the timer is:
 
 - **Installable**: Add it to your home screen, sitting right alongside native apps.
-- **Network-Independent**: Use even whilst offline with resource precaching.
+- **Network Independent**: Use even when offline with resource precaching.
+- **Re-engaging**: Receive notifications whilst running the timer in the background.
 
-*Note: PWA browser support is varied at this time.*
+*Note: PWA features have varied browser support at this time.*
 
 Try it out: [https://pwa-pomodoro-timer.firebaseapp.com](https://pwa-pomodoro-timer.firebaseapp.com)
 

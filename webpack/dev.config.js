@@ -1,11 +1,12 @@
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const baseConfig = require('./base.config.js');
 
-module.exports = merge(common, {
+module.exports = merge(baseConfig, {
     devtool: 'eval-source-map',
     devServer: {
-        contentBase: './dist',
+        contentBase: path.resolve(__dirname, '../dist'),
         hot: true
     },
     module: {
