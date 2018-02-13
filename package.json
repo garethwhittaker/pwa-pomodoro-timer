@@ -1,6 +1,6 @@
 {
   "name": "pomodoro-timer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Pomodoro Timer",
   "scripts": {
     "start": "webpack-dev-server --open --config ./webpack/dev.config.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/garethwhittaker/pomodoro-timer.git"
+    "url": "https://github.com/garethwhittaker/pwa-pomodoro-timer.git"
   },
   "license": "ISC",
   "devDependencies": {

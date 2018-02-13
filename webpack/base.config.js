@@ -9,7 +9,7 @@ const configureIcon = (size, ios = false) => {
         destination: 'assets',
         sizes: `${ size }x${ size }`,
         type: 'image/png',
-        ios: ios
+        ios
     };
 };
 
